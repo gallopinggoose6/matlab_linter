@@ -217,6 +217,8 @@ def check_var(var, num):
     #
     # Methodology: Iterate through each character to check that it's lowercase, a number, or a _
     for char in var:
+        if char == '(':
+            break
         if char != '_':
             if (not char.islower() and not char.isnumeric()) or not char.isalnum():
                 print('On line ' + str(num) + ' the variable ' + var + ' does not conform to ' + \
@@ -255,7 +257,8 @@ def check_vars(current, line_num):
             for var in var_list:
                 error_count += check_var(var, line_num)
         else:
-            var_list = var_group.split(' ')
+            var_name_list = var_group.split('(')[0]
+            var_list = var_name_list.split(' ')
             while '' in var_list:
                 var_list.remove('')
             var = var_list[-1]
@@ -367,7 +370,7 @@ def check_func(current, file, check_name, line_num):
         input_line = file.readline()
         line_num += 1
         if input_line[0:11] not in docstring_section[i[0]] or '=' not in input_line:
-            print('First Function Input/Output line: "' + input_line + complaint_model + str(line_num))
+            print('First Function Input/Output line: "' + input_line +complaint_model+str(line_num))
             return -1
         while next_line := file.readline().replace('\n', ''): # Read all lines in the Input section
             line_num += 1
