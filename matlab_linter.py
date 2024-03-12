@@ -219,7 +219,7 @@ def check_var(var, num):
     for char in var:
         if char == '(':
             break
-        if char != '_':
+        if char not in {'_', '{', '}'}:
             if (not char.islower() and not char.isnumeric()) or not char.isalnum():
                 print('On line ' + str(num) + ' the variable ' + var + ' does not conform to ' + \
                     'snake_case naming')
